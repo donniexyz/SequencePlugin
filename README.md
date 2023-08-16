@@ -1,6 +1,5 @@
 [![GitHub release](https://img.shields.io/github/v/release/Vanco/SequencePlugin)](https://github.com/Vanco/SequencePlugin/releases)
 [![JetBrains Plugins](https://img.shields.io/jetbrains/plugin/v/8286)](https://plugins.jetbrains.com/plugin/8286-sequencediagram)
-[![GitHub release (release name instead of tag name)](https://img.shields.io/github/v/release/Vanco/SequencePlugin?include_prereleases)](https://github.com/Vanco/SequencePlugin/releases)
 
 # SequenceDiagram
 <!-- Plugin description -->
@@ -24,18 +23,23 @@ with this plugin, you can
 ## Experimental features
 **The experimental features created by myself, which is not part of UML standard. Use this feature in your own risk.**
 
-### UAST support ([version 3.0.0-alpha](https://plugins.jetbrains.com/plugin/8286-sequencediagram/versions/alpha))
-UAST (Unified Abstract Syntax Tree) is an abstraction layer on the PSI of different programming languages targeting the 
-JVM (Java Virtual Machine). It provides a unified API for working with common language elements like classes and method 
-declarations, literal values, and control flow operators.
+### UAST support (since version 3.x)
+SequenceDiagram version 3.x will use UAST api to generate sequence diagram.
 
-Which languages are supported?
-- Java: full support
-- Kotlin: full support
-- Scala: beta, but full support
-- Groovy: declarations only, method bodies not supported
+Refer to ['The UAST description from IntelliJ Platform SDK'](https://plugins.jetbrains.com/docs/intellij/uast.html)
 
-Try to use UAST api to generate SequenceDiagram. 
+> UAST (Unified Abstract Syntax Tree) is an abstraction layer on the PSI of different programming languages targeting the 
+> JVM (Java Virtual Machine). It provides a unified API for working with common language elements like classes and method 
+> declarations, literal values, and control flow operators.
+> 
+> Which languages are supported?
+> - Java: full support
+> - Kotlin: full support
+> - Scala: beta, but full support
+> - Groovy: declarations only, method bodies not supported
+
+> **Note**
+: There are some limitation when generate from scala or groovy code. Refer to the list of [known issues](#known-issue).
 
 ### Smart Interface
 Find the implementation of the interface smartly.  e.g.
@@ -95,6 +99,7 @@ I draw a dummy `() ->` self call in diagram.
 ![Lambda Expression](imges/lambda_expr.png)
 
 ## How to use
+Sequence Diagram can generate sequence diagram from JAVA, Kotlin, Scala, Groovy File.
 1. Open Java/Kotlin/Scala/Groovy file
 2. Generate SequenceDiagram with shortcut `Alt S` for windows, `Option S` for macOS
 
@@ -105,49 +110,50 @@ Have fun!
 ## Version History
 Current Version
 
-[![GitHub release](https://img.shields.io/github/v/release/Vanco/SequencePlugin)](https://github.com/Vanco/SequencePlugin/releases)
+[![JetBrains Plugins](https://img.shields.io/jetbrains/plugin/v/8286)](https://plugins.jetbrains.com/plugin/8286-sequencediagram)
 
 ### Version and API comparison
 
-| Open API          | v2.x.x                                          | v3.x.x                    |
+| Open API          | v2.x.x                                          | v3.x                      |
 |-------------------|-------------------------------------------------|---------------------------|
 | IGenerator        | SequenceGenerator <br> KtSequenceGenerator      | UastSequenceGenerator     |
 | GeneratorFactory  | JavaGeneratorFactory <br> KtGeneratorFactory    | UastGeneratorFactory      |
 | ElementTypeFinder | JavaElementTypeFinder  <br> KtElementTypeFinder |                           |
 | ActionFinder      | JavaActionFinder  <br>  KtActionFinder          | UastActionFinder          |
-| SequenceNavigable | JavaSequenceNavigable  <br> KtSequenceNavigable | JavaSequenceNavigable[^*] |
+| SequenceNavigable | JavaSequenceNavigable  <br> KtSequenceNavigable | JavaSequenceNavigable[^1] |
 
-[^*] `JavaSequenceNavigable` work for Java, Kotlin, Scala, Groovy
+[^1]: `JavaSequenceNavigable` work for Java, Kotlin, Scala, Groovy
 
 ### Function comparison
 
-|                                                        | v2.x.x                | v3.x.x      |
-|--------------------------------------------------------|-----------------------|-------------|
-| **Language:**                                          |                       |             |
-| Java                                                   | [x]                   | [x]         |
-| Kotlin                                                 | [x] Partial           | [x]         |
-| Scala                                                  | [ ]                   | [x] Beta    |
-| Groovy                                                 | [ ]                   | [x] Partial |
-| **Entry:**                                             |                       |             |
-| Navigation Bar                                         | [x]                   | [ ]         |
-| Tools Menu                                             | [x]                   | [x]         |
-| Editor Context Menu                                    | [x]                   | [x]         |
-| Shortcut `Alt S` for windows <br> `Option S` for macOS | [x]                   | [x]         |
-| Project view popup menu                                | [ ]                   | [ ]         |
-| Structure view popup menu                              | [ ]                   | [ ]         |
-| **Feature:**                                           |                       |             |
-| Smart Interface[^2]                                    | [x] EXC: 2.2.4, 2.2.5 | [x]         |
-| Smart Interface configuration                          | [ ]                   | [x]         |
-| Lambda call configuration                              | [x]                   | [x]         |
+|                                                        | v2.x.x                     | 3.x              |
+|--------------------------------------------------------|----------------------------|------------------|
+| **Language:**                                          |                            |                  |
+| Java                                                   | &#x2713;                   | &#x2713;         |
+| Kotlin                                                 | &#x2713; Partial           | &#x2713;         |
+| Scala                                                  |                            | &#x2713;         |
+| Groovy                                                 |                            | &#x2713; Partial |
+| **Entry:**                                             |                            |                  |
+| Navigation Bar                                         | &#x2713;                   |                  |
+| Tools Menu                                             | &#x2713;                   | &#x2713;         |
+| Editor Context Menu                                    | &#x2713;                   | &#x2713;         |
+| Shortcut `Alt S` for windows <br> `Option S` for macOS |                            | &#x2713;         |
+| Project view popup menu                                |                            |                  |
+| Structure view popup menu                              |                            |                  |
+| **Feature:**                                           |                            |                  |
+| Smart Interface[^2]                                    | &#x2713; EXC: 2.2.4, 2.2.5 | &#x2713;         |
+| Smart Interface configuration                          |                            | &#x2713;         |
+| Lambda call configuration                              | &#x2713;                   | &#x2713;         |
 
-[^2] `Smart interface` will scan entire file and spend more generate time.
+[^2]: `Smart interface` will scan entire file and spend more generate time.
 
 ### versions history:
 [Changelog](CHANGELOG.md)
 
 ## Known issue
-#### Scala for comprehension calls is not supported #151
-for example:
+
+#### 1. Scala for comprehension calls is not supported
+For example:
 ```scala
 class B() {
   def bar() = Option("bar")
@@ -173,7 +179,7 @@ val r = for {
       x <- b.bar()
     } yield "foo" + x
 ```
-it's UAST tree is `UastEmptyexpression`. 
+it's UAST tree is `UastEmptyexpression`.
 ```
  UMethod (name = foo2)
             UBlockExpression
@@ -189,6 +195,46 @@ it's UAST tree is `UastEmptyexpression`.
 ```
 so the `b.bar()` method call will not generate base on `UastEmptyexpression`. Hopefully, the UAST api will solve this problem sooner.
 
+#### 2. Groovy method body is not supported
+For example:
+```groovy
+/**
+ * A Class description
+ */
+class Student {
+    /** the name of the person */
+    String name
+
+    /**
+     * Creates a greeting method for a certain person.
+     *
+     * @param otherPerson the person to greet
+     * @return a greeting message
+     */
+    //known issue: groovy method will not generate in UAST
+    String greet(String otherPerson) {
+        "Hello ${otherPerson}"
+        // call java
+        Fruit fruit = new Banana()
+        fruit.eat()
+
+    }
+}
+```
+Based on UAST api limitation, it's UAST tree is no method body mappings.
+```
+UFile (package = van.demo.grovvy)
+    UClass (name = Student)
+        UMethod (name = greet)
+            UParameter (name = otherPerson)
+```
+When generate sequence of method `greet`, the calls in the method body will not generate (the call java code in the body of `greet`).
+```groovy
+        "Hello ${otherPerson}"
+        // call java
+        Fruit fruit = new Banana()
+        fruit.eat()
+```
 ## Acknowledgement
 
 #### Name history
@@ -209,3 +255,5 @@ In 2016, I change the Name again to **SequenceDiagram** and host the source code
 Now it is open source.
 
 Thanks Kentaur for the great work on the original source.
+
+---
